@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown in Text einbetten</title>
+    <style>
+        select {
+            padding: 4px;
+            margin: 4px;
+        }
+        #generated-text {
+            padding: 8px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            white-space: pre-wrap; /* Zeilenumbrüche werden berücksichtigt */
+        }
+    </style>
+</head>
+<body>
+    <p>Erstelle einen informativen Thementext zum Thema <select name="Thema" id="Thema" onchange="generateText()" oninput="generateText()">
+        <option value="Sonnensystem">Sonnensystem</option>
+        <option value="Bienen">Bienen</option>
+        <option value="Vulkane">Vulkane</option>
+        <option value="Pinguine">Pinguine</option>
+        <option value="Ozeane">Ozeane</option>
+        <option value="Dinosaurier">Dinosaurier</option>
+    </select> der die wichtigsten Merkmale, Verbreitung, Bedeutung und besondere Aspekte beschreibt. Der Text soll für Grundschüler:innen der Klasse <select name="Klassenstufe" id="Klassenstufe" onchange="generateText()" oninput="generateText()">
+        <option value="1 (Grundschule)">1 (Grundschule)</option>
+        <option value="2 (Grundschule)">2 (Grundschule)</option>
+        <option value="3 (Grundschule)">3 (Grundschule)</option>
+        <option value="4 (Grundschule)">4 (Grundschule)</option>
+    </select> gut verständlich sein und einen Verweis darauf erhalten, dass der Text mit Chatgpt erstellt wurde. </p>
+
+    <div id="generated-text"></div>
+    <button onclick="copyToClipboard()">Kopieren</button>
+
+    <script>
+        function generateText() {
+            // Werte der Dropdowns abrufen
+            const thema = document.getElementById('Thema').value;
+            const klassenstufe = document.getElementById('Klassenstufe').value;
+            // Generierten Text erstellen
+            const text = `Erstelle einen informativen Thementext zum Thema ${thema} der die wichtigsten Merkmale, Verbreitung, Bedeutung und besondere Aspekte beschreibt. Der Text soll für Grundschüler:innen der Klasse ${klassenstufe} gut verständlich sein und einen Verweis darauf erhalten, dass der Text mit Chatgpt erstellt wurde.`;
+            // Text in das Div-Element einfügen
+            document.getElementById('generated-text').innerText = text;
+        }
+
+        function copyToClipboard() {
+            // Den generierten Text auswählen
+            const text = document.getElementById('generated-text').textContent;
+            // Temporären Input zur Zwischenspeicherung des Textes erstellen
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Text wurde in die Zwischenablage kopiert!');
+        }
+
+        // Standardmäßig Text beim Laden der Seite generieren
+        window.onload = generateText;
+    </script>
+</body>
+</html>
